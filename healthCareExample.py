@@ -26,9 +26,11 @@ helper functions start here
 def import_transfers(filename):
     """ import transfers from CSV, convert to namedtuple, then read into memory """
     Transfer = namedtuple('Transfer', ['name', 'isFrom', 'to', 'time'])
+    asDateTime = datetime.strptime
     with open(filename) as file:
         database = csv.reader(file)
-        transfers = [Transfer(*line) for line in database]
+        transfers = [Transfer(*line[:3], asDateTime(line[4])) 
+            for line in database]
         return transfers
 
 def generate_frequent_fliers(transfers):
@@ -60,7 +62,7 @@ def export_frequent_fliers(OUTPUT_FILEPATH, frequentFliers):
 helper functions end here
 """
 
-""" this is what actually runs """
+#this is what actually runs
 INPUT_FILEPATH = 'testin.csv'
 OUTPUT_FILEPATH = 'testout.csv'
 transfers = import_transfers(INPUT_FILEPATH)
