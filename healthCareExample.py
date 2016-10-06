@@ -26,10 +26,10 @@ helper functions start here
 def import_transfers(filename):
     """ import transfers from CSV, convert to namedtuple, then read into memory """
     Transfer = namedtuple('Transfer', ['name', 'isFrom', 'to', 'time'])
-    asDateTime = datetime.strptime
+    as_datetime = datetime.strptime
     with open(filename) as file:
         database = csv.reader(file)
-        transfers = [Transfer(*line[:3], asDateTime(line[4])) 
+        transfers = [Transfer(*line[:3], as_datetime(line[4])) 
             for line in database]
         return transfers
 
