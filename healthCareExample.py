@@ -29,7 +29,7 @@ def import_transfers(filename):
     as_datetime = datetime.strptime
     with open(filename) as file:
         database = csv.reader(file)
-        transfers = [Transfer(*line[:3], as_datetime(line[4])) 
+        transfers = [Transfer(*line[:3], as_datetime(line[3])) 
             for line in database]
         return transfers
 
